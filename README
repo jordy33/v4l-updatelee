@@ -1,0 +1,73 @@
+#
+#
+# Updatelee's repository based off of V4L media_tree and powARman's saa716x work.
+#
+# 
+
+# This will set you up with Linux 4.16.0
+
+# Download any dependancies that you might need
+
+	sudo apt-get install git build-essential linux-headers-generic \
+	ncurses-dev libproc-processtable-perl fakeroot libelf-dev libssl-dev \
+	bison flex pigz
+
+# Then download the repository, aprox 1.9Gb
+
+	git clone https://bitbucket.org/updatelee/v4l-updatelee
+	cd v4l-updatelee
+
+# If you don't need the entire repo history, to conserve bandwidth downloading, please use
+
+	git clone --depth 1 https://bitbucket.org/updatelee/v4l-updatelee
+	cd v4l-updatelee
+
+# To compile and install first select any additional media drivers you want compiled.
+
+# Then compile, -j[number of cores in your processor], this will take around 20min on my 
+# computer, so depending on your system it may take even longer.
+
+	sudo make -j9 deb-pkg
+
+# Install the kernel
+
+	sudo dpkg -i ../linux-*deb
+
+# Install the firmware
+
+	cd firmware
+	sudo make install
+
+# reboot
+
+# Good to go, in the future if you need to upgrade 
+# pull the latest changes and recompile the modules
+
+	cd v4l-updatelee
+	git pull
+	make modules
+	
+# and install modules
+
+	sudo make modules_install
+
+# unload/reload your modules or reboot
+
+	sudo reboot
+
+# To update just the include headers
+
+	sudo make headers_install INSTALL_HDR_PATH=/usr
+
+#
+# Tested with
+#
+# Prof 7301, 7500, 8000
+# TBS 6925, 5922, 5925, 5980, 6908, 6903
+# Skystar 2 eXpress HD
+# Genpix Skywalker-1
+# Hauppauge 950Q, 955Q, Aero-m
+#
+# Others are reported working as well, but havent personally tested them
+#
+# If you have further questions you can find me on Rick Caylor's forum
