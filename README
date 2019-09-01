@@ -27,7 +27,7 @@
 # Then compile, -j[number of cores in your processor], this will take around 20min on my 
 # computer, so depending on your system it may take even longer.
 
-	sudo make -j9 deb-pkg
+	sudo make -j4 deb-pkg
 
 # Install the kernel
 
